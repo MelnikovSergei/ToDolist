@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Список дел</title>
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body background="bg-main.jpg">
+    
+    <form class="add-form" action="https://echo.htmlacademy.ru/courses" method="post">
+      <input class="add-form-input" type="text"  aria-label="Описание задачи" placeholder="Например, купить слона" required>
+      <button class="add-form-button" type="submit">Новая задача</button>
+    </form>
+    <h1 class="visually-hidden">Список дел</h1>
+    <ul class="todo-list"></ul>
+    <p class="empty-tasks hidden">Все задачи выполнены. Новых задач нет.</p>
+    
+    
+    <template id="task-template">
+      <li class="todo-list-item">
+        <label>
+          <input type="checkbox" class="todo-list-input">
+          <span></span>
+          <button class="remove-button">Удалить</button>
+        </label>
+      </li>
+    </template>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
