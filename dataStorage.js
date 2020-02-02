@@ -1,8 +1,4 @@
 let storageItems = [];
-let itemsAttribute = {
-    isDone: false,
-    title: ""
-}
 
 export function initialStorage(){
     var stored = localStorage.getItem('items');
@@ -33,6 +29,6 @@ export function getId() {
     return (JSON.parse(localStorage.getItem('items'))).length - 1;
 }
 
-export function getstorageItems() {
+export function getStorageItems() {
     return storageItems;
 }
