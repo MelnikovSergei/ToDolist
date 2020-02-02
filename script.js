@@ -1,3 +1,11 @@
+import {
+  initialStorage,
+  emptyProtocol,
+  removeItemFromStorage,
+  addNewItemtoStorage,
+  getId,
+  getstorageItems} from './dataStorage.js';
+
 var list = document.querySelector('.todo-list');
 var items = list.children;
 var emptyListMessage = document.querySelector('.empty-tasks');
@@ -6,14 +14,7 @@ var newItemTitle = newItemForm.querySelector('.add-form-input');
 var taskTemplate = document.querySelector('#task-template').content;
 var newItemTemplate = taskTemplate.querySelector('.todo-list-item');
 
-var itemsArray = []
-var stored = localStorage.getItem('items');
-if (stored){
-  var drawItemsArray = JSON.parse(stored);
-  itemsArray = drawItemsArray.filter(n => n);
-  localStorage.setItem('items', JSON.stringify(itemsArray));
-}
-
+initialStorage();
 
 var doMaker = function (taskTitle, id) {
   if (taskTitle !== "") {
@@ -29,8 +30,7 @@ var doMaker = function (taskTitle, id) {
 var toggleEmptyListMessage = function () {
   if (items.length === 0) {
     emptyListMessage.classList.remove('hidden');
-    itemsArray = [];
-    localStorage.setItem('items', JSON.stringify(itemsArray));
+    emptyProtocol();
   } else {
     emptyListMessage.classList.add('hidden');
   }
@@ -56,8 +56,7 @@ var addCheckHandler = function (item, id) {
   removeButton.addEventListener('click', function(){
     console.log(arrayPosition);
     item.remove();
-    itemsArray[arrayPosition] = ""; 
-    localStorage.setItem('items', JSON.stringify(itemsArray));
+    removeItemFromStorage(arrayPosition);
     toggleEmptyListMessage();
   });
 };
@@ -66,7 +65,7 @@ for (var i = 0; i < items.length; i++) {
   addCheckHandler(items[i], i.toString(10));
 }
 
-itemsArray.forEach((item, index) => {
+getstorageItems().forEach((item, index) => {
   doMaker(item, index);
 });
 toggleEmptyListMessage();
@@ -74,9 +73,8 @@ toggleEmptyListMessage();
 newItemForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
   var taskText = newItemTitle.value;
-  itemsArray.push(taskText);
-  localStorage.setItem('items', JSON.stringify(itemsArray));
-  var id = (JSON.parse(localStorage.getItem('items'))).length - 1;
+  addNewItemtoStorage(taskText);
+  var id = getId();
   doMaker(taskText, id);
   toggleEmptyListMessage();
   newItemTitle.value = '';
