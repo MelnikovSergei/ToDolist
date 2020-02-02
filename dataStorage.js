@@ -5,7 +5,6 @@ let itemsAttribute = {
 }
 
 export function initialStorage(){
-
     var stored = localStorage.getItem('items');
 
     if (stored){
