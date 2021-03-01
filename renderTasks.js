@@ -5,19 +5,19 @@ import {
     addNewItemtoStorage,
     getId} from './dataStorage.js';
 
-var taskTemplate = document.querySelector('#task-template').content;
-var newItemTemplate = taskTemplate.querySelector('.todo-list-item');
-var list = document.querySelector('.todo-list');
-var items = list.children;
-var emptyListMessage = document.querySelector('.empty-tasks');
-var newItemForm = document.querySelector('.add-form');
-var newItemTitle = newItemForm.querySelector('.add-form-input');
+let taskTemplate = document.querySelector('#task-template').content;
+let newItemTemplate = taskTemplate.querySelector('.todo-list-item');
+let list = document.querySelector('.todo-list');
+let items = list.children;
+let emptyListMessage = document.querySelector('.empty-tasks');
+let newItemForm = document.querySelector('.add-form');
+let newItemTitle = newItemForm.querySelector('.add-form-input');
 
 export function renderTasksFromStorage() {
     getStorageItems().forEach((item, index) => {
         renderTask(item, index);
       });
-      for (var i = 0; i < items.length; i++) {
+      for (let i = 0; i < items.length; i++) {
         addCheckHandler(items[i], i.toString(10));
       }
     toggleEmptyListMessage();    
@@ -25,8 +25,8 @@ export function renderTasksFromStorage() {
 
 export function renderTask(taskTitle, id) {
     if (taskTitle !== "") {
-      var task = newItemTemplate.cloneNode(true);
-      var taskDescription = task.querySelector('span');
+      let task = newItemTemplate.cloneNode(true);
+      let taskDescription = task.querySelector('span');
       taskDescription.textContent = taskTitle;
       addCheckHandler(task, id);
       list.appendChild(task);   
@@ -36,11 +36,11 @@ export function renderTask(taskTitle, id) {
 
 function addCheckHandler(item, id) {
   
-    var checkbox = item.querySelector('.todo-list-input');
-    var removeButton = item.querySelector('.remove-button');
+    let checkbox = item.querySelector('.todo-list-input');
+    let removeButton = item.querySelector('.remove-button');
     
     checkbox.addEventListener('change', function () {
-      var text = item.querySelector('span');
+      let text = item.querySelector('span');
       if (text.classList.contains('red-text')) {
         text.classList.remove('red-text');
       } else {
@@ -50,7 +50,7 @@ function addCheckHandler(item, id) {
     });
   
   
-    var arrayPosition = id;
+    let arrayPosition = id;
     removeButton.addEventListener('click', function(){
       item.remove();
       removeItemFromStorage(arrayPosition);
@@ -70,9 +70,9 @@ function toggleEmptyListMessage() {
 
   newItemForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    var taskText = newItemTitle.value;
+    let taskText = newItemTitle.value;
     addNewItemtoStorage(taskText);
-    var id = getId();
+    let id = getId();
     renderTask(taskText, id);
     toggleEmptyListMessage();
     newItemTitle.value = '';
